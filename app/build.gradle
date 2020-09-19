@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion compile_version
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.hodinv.products"
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$dep.androidx.core_ktx"
+    implementation "androidx.appcompat:appcompat:$dep.androidx.appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$dep.androidx.constraint_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$dep.androidx.lifecycle_extentions"
+    implementation "androidx.recyclerview:recyclerview:$dep.androidx.material_recycleview_version"
+
+    // kodein
+    implementation "org.kodein.di:kodein-di-generic-jvm:$dep.kodein_version"
+    implementation "org.kodein.di:kodein-di-framework-android-core:$dep.kodein_version"
+    implementation "org.kodein.di:kodein-di-framework-android-x:$dep.kodein_version"
+    // rx
+    implementation "io.reactivex.rxjava2:rxandroid:$dep.rx.rx_android_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$dep.rx.rx_kotlin_version"
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$dep.retrofit.retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$dep.retrofit.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$dep.retrofit.retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$dep.retrofit.logging_interceptor_version"
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:$dep.glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$dep.glide"
+
+    testImplementation "junit:junit:$dep.testing.junit"
+    testImplementation "org.mockito:mockito-core:$dep.testing.mockito"
+    testImplementation "org.mockito:mockito-inline:$dep.testing.mockito"
+    testImplementation "android.arch.core:core-testing:$dep.androidx.lifecycle_extentions"
+    androidTestImplementation "androidx.test.ext:junit:$dep.androidx.ext_junit"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$dep.androidx.espresso"
+
+}
